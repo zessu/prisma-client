@@ -14,6 +14,8 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
 scalar Long
 
 type Mutation {
@@ -38,11 +40,14 @@ type PageInfo {
   startCursor: String
 }
 
+"""Post"""
 type Post {
   author: User
+  createdAt: DateTime!
   id: ID!
   published: Boolean!
   title: String!
+  updatedAt: DateTime!
 }
 
 type PostConnection {
@@ -89,6 +94,14 @@ enum PostOrderByInput {
 
 input PostScalarWhereInput {
   AND: [PostScalarWhereInput!]
+  createdAt: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not: DateTime
+  createdAt_not_in: [DateTime!]
   id: ID
   id_contains: ID
   id_ends_with: ID
@@ -121,6 +134,14 @@ input PostScalarWhereInput {
   title_not_in: [String!]
   title_not_starts_with: String
   title_starts_with: String
+  updatedAt: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not: DateTime
+  updatedAt_not_in: [DateTime!]
 }
 
 input PostUpdateInput {
@@ -175,6 +196,14 @@ input PostUpsertWithWhereUniqueWithoutAuthorInput {
 input PostWhereInput {
   AND: [PostWhereInput!]
   author: UserWhereInput
+  createdAt: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not: DateTime
+  createdAt_not_in: [DateTime!]
   id: ID
   id_contains: ID
   id_ends_with: ID
@@ -207,6 +236,14 @@ input PostWhereInput {
   title_not_in: [String!]
   title_not_starts_with: String
   title_starts_with: String
+  updatedAt: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not: DateTime
+  updatedAt_not_in: [DateTime!]
 }
 
 input PostWhereUniqueInput {
@@ -222,11 +259,14 @@ type Query {
   usersConnection(after: String, before: String, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): UserConnection!
 }
 
+"""User"""
 type User {
+  createdAt: DateTime!
   email: String
   id: ID!
   name: String!
   posts(after: String, before: String, first: Int, last: Int, orderBy: PostOrderByInput, skip: Int, where: PostWhereInput): [Post!]
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -303,6 +343,14 @@ input UserUpsertWithoutPostsInput {
 
 input UserWhereInput {
   AND: [UserWhereInput!]
+  createdAt: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not: DateTime
+  createdAt_not_in: [DateTime!]
   email: String
   email_contains: String
   email_ends_with: String
@@ -350,6 +398,14 @@ input UserWhereInput {
   posts_every: PostWhereInput
   posts_none: PostWhereInput
   posts_some: PostWhereInput
+  updatedAt: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not: DateTime
+  updatedAt_not_in: [DateTime!]
 }
 
 input UserWhereUniqueInput {
