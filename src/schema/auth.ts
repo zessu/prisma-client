@@ -1,4 +1,4 @@
-import { mutationField, interfaceType, stringArg } from 'nexus';
+import { interfaceType, stringArg } from 'nexus';
 import { prismaObjectType } from 'nexus-prisma';
 
 const bcrypt = require('bcryptjs');
@@ -29,24 +29,23 @@ export const Mutation = prismaObjectType({
 });
 
 export const Auth = prismaObjectType({
-  name: 'Mutation',
+  name: 'Auth',
   definition(t) {
-    t.prismaFields(['*']),
-      t.field('register', {
-        type: RegisterResponse,
-        args: {
-          username: stringArg({ nullable: false }),
-          password: stringArg({ nullable: false })
-        },
-        resolve: async (_, { username, password }, ctx, info) => {
-          const hashedPassword = await bcrypt.hash(password, 10);
-          const user = await ctx.prisma.createUser({
-            username,
-            password: hashedPassword
-          });
-          return user;
-        }
-      });
+    t.field('register', {
+      type: RegisterResponse,
+      args: {
+        username: stringArg({ nullable: false }),
+        password: stringArg({ nullable: false })
+      },
+      resolve: async (_, { username, password }, ctx, info) => {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await ctx.prisma.createUser({
+          username,
+          password: hashedPassword
+        });
+        return user;
+      }
+    });
     t.field('login', {
       type: LoginResponse,
       args: {
