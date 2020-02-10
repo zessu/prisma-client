@@ -341,6 +341,8 @@ export interface NexusGenRootTypes {
     cursor: string; // String!
     node: NexusGenRootTypes['User']; // User!
   }
+  LoginResponse: any;
+  RegisterResponse: any;
   String: string;
   Int: number;
   Float: number;
@@ -396,6 +398,8 @@ export interface NexusGenFieldTypes {
     deleteManyUsers: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deletePost: NexusGenRootTypes['Post'] | null; // Post
     deleteUser: NexusGenRootTypes['User'] | null; // User
+    login: NexusGenRootTypes['LoginResponse']; // LoginResponse!
+    register: NexusGenRootTypes['RegisterResponse']; // RegisterResponse!
     updateManyPosts: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyUsers: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updatePost: NexusGenRootTypes['Post'] | null; // Post
@@ -451,6 +455,14 @@ export interface NexusGenFieldTypes {
     cursor: string; // String!
     node: NexusGenRootTypes['User']; // User!
   }
+  LoginResponse: { // field return type
+    email: string; // String!
+    password: string; // String!
+  }
+  RegisterResponse: { // field return type
+    email: string; // String!
+    password: string; // String!
+  }
 }
 
 export interface NexusGenArgTypes {
@@ -472,6 +484,14 @@ export interface NexusGenArgTypes {
     }
     deleteUser: { // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    }
+    login: { // args
+      password: string; // String!
+      username: string; // String!
+    }
+    register: { // args
+      password: string; // String!
+      username: string; // String!
     }
     updateManyPosts: { // args
       data: NexusGenInputs['PostUpdateManyMutationInput']; // PostUpdateManyMutationInput!
@@ -568,7 +588,7 @@ export type NexusGenInputNames = "PostCreateInput" | "PostCreateManyWithoutAutho
 
 export type NexusGenEnumNames = "PostOrderByInput" | "UserOrderByInput";
 
-export type NexusGenInterfaceNames = never;
+export type NexusGenInterfaceNames = "LoginResponse" | "RegisterResponse";
 
 export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "Long" | "String";
 

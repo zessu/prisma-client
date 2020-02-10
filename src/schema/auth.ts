@@ -8,13 +8,15 @@ export const RegisterResponse = interfaceType({
   name: 'RegisterResponse',
   definition: t => {
     t.string('email'), t.string('password');
+    t.resolveType(() => null);
   }
 });
 
 export const LoginResponse = interfaceType({
-  name: 'RegisterResponse',
+  name: 'LoginResponse',
   definition: t => {
     t.string('email'), t.string('password');
+    t.resolveType(() => null);
   }
 });
 
@@ -24,13 +26,9 @@ export const Query = prismaObjectType({
 });
 
 export const Mutation = prismaObjectType({
-  name: 'Query',
-  definition: t => t.prismaFields(['*'])
-});
-
-export const Auth = prismaObjectType({
-  name: 'Auth',
+  name: 'Mutation',
   definition(t) {
+    t.prismaFields(['*']);
     t.field('register', {
       type: RegisterResponse,
       args: {

@@ -16,6 +16,11 @@ type BatchPayload {
 
 scalar DateTime
 
+interface LoginResponse {
+  email: String!
+  password: String!
+}
+
 scalar Long
 
 type Mutation {
@@ -25,6 +30,8 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deletePost(where: PostWhereUniqueInput!): Post
   deleteUser(where: UserWhereUniqueInput!): User
+  login(password: String!, username: String!): LoginResponse!
+  register(password: String!, username: String!): RegisterResponse!
   updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
@@ -40,7 +47,6 @@ type PageInfo {
   startCursor: String
 }
 
-"""Post"""
 type Post {
   author: User
   createdAt: DateTime!
@@ -259,7 +265,11 @@ type Query {
   usersConnection(after: String, before: String, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): UserConnection!
 }
 
-"""User"""
+interface RegisterResponse {
+  email: String!
+  password: String!
+}
+
 type User {
   createdAt: DateTime!
   email: String
