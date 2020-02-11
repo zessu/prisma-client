@@ -3,6 +3,7 @@
     "lib": ["es2016", "esnext.asynciterable"],
     "outDir": "./dist",
     "allowJs": false,
+    "strict": true,
     "target": "es6",
     "sourceMap": true,
     "module": "commonjs",

@@ -8,12 +8,12 @@
 datasource db {
   provider = "postgresql"
   // other options are "mysql" and "sqlite"
-  url      = "postgresql://postgres:root@localhost:5432/"
+  url = "***"
 }
 
 // Other examples for connection strings are
-// SQLite url = "sqlite./dev.db"
-// MySQL  url = "mysql//johndoejohndoe@localhost3306/mydb"
+// SQLite url = "***"
+// MySQL  url = "***"
 // You can also use environment variables to specify the connection string https//pris.ly/d/prisma-schema#using-environment-variables
 
 // By adding the `generator` block, you specify that you want to generate Prisma's DB client.

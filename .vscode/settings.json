@@ -1,0 +1,13 @@
+{
+  "sqltools.connections": [
+    {
+      "database": "dating_api",
+      "dialect": "PostgreSQL",
+      "name": "dating_api",
+      "password": "root",
+      "port": 6666,
+      "server": "localhost",
+      "username": "postgres"
+    }
+  ]
+}
