@@ -8,7 +8,7 @@
 datasource db {
   provider = "postgresql"
   // other options are: "mysql" and "sqlite"
-  url      = "postgresql://prisma:prisma@localhost:5432/prisma?schema=public"
+  url      = "postgresql://postgres:root@localhost:5432/prisma?schema=public"
 }
 
 // Other examples for connection strings are:
@@ -25,6 +25,24 @@ generator client {
 
 // Next steps:
 // 1. Add your DB connection string as the `url` of the `datasource` block
-// 2. Run `prisma2 introspect` to get your data model into the schema (this will override this file and delete all comments!)
+// 2. Run `prisma2 introspect` to get your data model into the schema (this will override this file and delete all comments?)
 // 3. Run `prisma2 generate` to generate Prisma Client JS
 // 4. Start using Prisma Client JS in your applicatio
+model User {
+  id: Int? @id @unique @default(ciud())
+  name: String?
+  email: String @unique
+  password: String?
+  createdAt: DateTime? @default(now())
+  updatedAt: DateTime? @updatedAt
+  posts: [Post?]?
+}
+
+model Post {
+  id: Int? @id @unique @default(ciud())
+  title: String?
+  published: Boolean? @default(value: false)
+  createdAt: DateTime? @default(now())
+  updatedAt: DateTime? @updatedAt
+  author: User @relation(link: INLINE)
+}
