@@ -1,14 +1,15 @@
-type User {
-  id: ID! @id
+model User {
+  id: ID! @id @unique @default(ciud())
   name: String!
   email: String @unique
+  password: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   posts: [Post!]!
 }
 
-type Post {
-  id: ID! @id
+model Post {
+  id: ID! @id @unique @default(ciud())
   title: String!
   published: Boolean! @default(value: false)
   createdAt: DateTime! @createdAt

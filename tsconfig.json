@@ -8,6 +8,6 @@
     "module": "commonjs",
     "moduleResolution": "node"
   },
-  "include": ["./src/**/*", "index.ts", "start-gql-server.ts"],
+  "include": ["./src/**/*", "index.ts", "start-gql-server.ts", "auth.ts"],
   "exclude": ["node_modules"]
 }

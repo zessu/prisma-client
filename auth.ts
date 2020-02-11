@@ -1,28 +1,54 @@
-import { interfaceType, stringArg } from 'nexus';
-import { prismaObjectType } from 'nexus-prisma';
+import { interfaceType, stringArg, inputObjectType, queryType } from 'nexus';
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-export const RegisterResponse = interfaceType({
-  name: 'RegisterResponse',
+const LoginType = inputObjectType({
+  name: 'LoginType',
   definition: t => {
-    t.string('email'), t.string('password');
-    t.resolveType(() => null);
+    definition: t => {
+      t.string("email"),
+      t.string("password")
+    }
+  }
+});
+
+export const RegisterType({
+  name: 'RegisterInputs',
+  definition: t => {
+    t.string("email"),
+    t.string("password")
   }
 });
 
 export const LoginResponse = interfaceType({
   name: 'LoginResponse',
   definition: t => {
-    t.string('email'), t.string('password');
+    t.string('token');
     t.resolveType(() => null);
   }
 });
 
-export const Query = prismaObjectType({
-  name: 'Query',
-  definition: t => t.prismaFields(['*'])
+export const RegisterResponse = interfaceType({
+  name: 'RegisterResponse',
+  definition: t => {
+    t.string('token')
+    t.resolveType(() => null);
+  }
+});
+
+export const Query = queryType({
+  definition(t) {
+    t.crud.user()
+    t.crud.users({ ordering: true })
+    t.crud.post()
+    t.crud.posts({ filtering: true })
+  },
+})
+
+export const Query = queryType({
+  definition: t => {
+  }
 });
 
 export const Mutation = prismaObjectType({
@@ -32,26 +58,26 @@ export const Mutation = prismaObjectType({
     t.field('register', {
       type: RegisterResponse,
       args: {
-        username: stringArg({ nullable: false }),
+        email: stringArg({ nullable: false }),
         password: stringArg({ nullable: false })
       },
-      resolve: async (_, { username, password }, ctx, info) => {
+      resolve: async (_, { email, password }, ctx, info) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await ctx.prisma.createUser({
-          username,
+          email,
           password: hashedPassword
         });
-        return user;
+        return { email: user.email, password: user.password };
       }
     });
     t.field('login', {
       type: LoginResponse,
       args: {
-        username: stringArg({ nullable: false }),
+        email: stringArg({ nullable: false }),
         password: stringArg({ nullable: false })
       },
-      resolve: async (parent, { username, password }, ctx, info) => {
-        const user = await ctx.prisma.user({ username });
+      resolve: async (parent, { email, password }, ctx, info) => {
+        const user = await ctx.prisma.user({ email });
 
         if (!user) {
           throw new Error('Invalid Login');
@@ -66,7 +92,7 @@ export const Mutation = prismaObjectType({
         const token = jwt.sign(
           {
             id: user.id,
-            username: user.email
+            email: user.email
           },
           'my-secret-from-env-file-in-prod',
           {
